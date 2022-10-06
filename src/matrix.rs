@@ -88,4 +88,37 @@ impl Matrix {
 
         result
     }
+
+    pub fn add(&self, other: &Vec<Vec<i32>>) -> Option<Vec<Vec<i32>>> {
+        //check rows are the same
+        if self.input.len() != other.len() {
+            return None;
+        }
+
+        //will pop the results here
+        let mut result = self.input.clone();
+
+        for (i, row) in self.input.iter().enumerate() {
+            for (j, col) in row.iter().enumerate() {
+                if j >= other[i].len() {
+                    return None;
+                }
+                result[i][j] = *col + other[i][j]
+            }
+        }
+
+        Some(result)
+    }
+
+    pub fn mul_scalar(&self, k: i32) -> Vec<Vec<i32>> {
+        let mut result = self.input.clone();
+
+        for (i, row) in self.input.iter().enumerate() {
+            for (j, col) in row.iter().enumerate() {
+                result[i][j] = *col * k;
+            }
+        }
+
+        result
+    }
 }
